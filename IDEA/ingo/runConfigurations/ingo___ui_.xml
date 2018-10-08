@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ingo - ui " type="JavaScriptTestRunnerKarma" factoryName="Karma">
+    <config-file value="$PROJECT_DIR$/ui/karma.conf.js" />
+    <browsers value="chrome" />
+    <karma-package-dir value="$PROJECT_DIR$/ui/node_modules/@angular/cli" />
+    <working-directory value="$PROJECT_DIR$" />
+    <node-interpreter value="project" />
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>

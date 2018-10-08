@@ -1,0 +1,24 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="JdeDeliveryClientTest.shouldFetchFromJdeOrders" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="fes-common_test" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.sfr.integration.jde.ws.order.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="com.sfr.integration.jde.ws.order" />
+    <option name="MAIN_CLASS_NAME" value="com.sfr.integration.jde.ws.order.JdeDeliveryClientTest" />
+    <option name="METHOD_NAME" value="shouldFetchFromJdeOrders" />
+    <option name="TEST_OBJECT" value="method" />
+    <option name="VM_PARAMETERS" value="-ea -Dapi_ext_properties=$PROJECT_DIR$/properties/local.properties" />
+    <option name="PARAMETERS" value="" />
+    <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+    <envs>
+      <env name="JAVA_HOME" value="$USER_HOME$/.jenv/versions/1.8.0.171" />
+    </envs>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

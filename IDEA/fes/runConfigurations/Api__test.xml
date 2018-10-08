@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Api -test" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.sfr.web.WebApplication" />
+    <module name="fes-api_main" />
+    <option name="VM_PARAMETERS" value="-Dapi_ext_properties=$PROJECT_DIR$/properties/test.properties -Dapi_context=$PROJECT_DIR$/fes-api/src/main/webapp/ui/src -Dfes_log_level=DEBUG" />
+    <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+    <method />
+  </configuration>
+</component>

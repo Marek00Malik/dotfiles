@@ -1,0 +1,26 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="clean build" type="GradleRunConfiguration" factoryName="Gradle">
+    <ExternalSystemSettings>
+      <option name="env">
+        <map>
+          <entry key="JAVA_HOME" value="$USER_HOME$/.jenv/versions/1.8.0.171" />
+        </map>
+      </option>
+      <option name="executionName" />
+      <option name="externalProjectPath" value="$PROJECT_DIR$" />
+      <option name="externalSystemIdString" value="GRADLE" />
+      <option name="scriptParameters" value="" />
+      <option name="taskDescriptions">
+        <list />
+      </option>
+      <option name="taskNames">
+        <list>
+          <option value="clean" />
+          <option value="build" />
+        </list>
+      </option>
+      <option name="vmOptions" value="-Dfes_log_level=DEBUG -Dlogback.configurationFile=$PROJECT_DIR$/fes-common/src/main/resources/logback/logback-local.xml -Dapi_ext_properties=$PROJECT_DIR$/properties/local.properties" />
+    </ExternalSystemSettings>
+    <method />
+  </configuration>
+</component>

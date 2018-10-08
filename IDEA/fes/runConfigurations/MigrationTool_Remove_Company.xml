@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MigrationTool:Remove Company" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.sfr.migration.MigrationConsoleApplication" />
+    <module name="data-migration_main" />
+    <option name="PROGRAM_PARAMETERS" value="-m $USER_HOME$/Documents/WORK/webno-mapping-prod.csv -rc 1043" />
+    <option name="VM_PARAMETERS" value="-Dapi_ext_properties=$PROJECT_DIR$/properties/local.properties -Dlogback.configurationFile=$PROJECT_DIR$/fes-common/src/main/resources/logback/logback-local.xml" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
