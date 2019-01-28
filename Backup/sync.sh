@@ -11,11 +11,15 @@ SSH_OS='';
 
 ZSH_BASH_REMOTE='/Backup/zsh_bash.tar.gz';
 ZSH_BASH_LINUX="$HOME";
-ZSH_BASH_OS='';
+ZSH_BASH_OS='$HOME';
+
+WORK_REMOTE='/Backup/WORK.tar.gz';
+WORK_LINUX="$HOME/Documents/WORK/"
+WORK_OS="$HOME/Documents/WORK/";
 
 GPG_REMOTE='/Backup/gpg.tar.gz';
 GPG_LINUX="$HOME/.gnupg"
-GPG_OS='';
+GPG_OS="$HOME/.gnupg";
 
 params="<from|to>"
 OS_SYSTEM='unknown'
@@ -63,10 +67,12 @@ function sync_to {
     if [[ $OS_SYSTEM == "Linux" ]]; then
         SSH_BASE="$SSH_LINUX"
         ZSH_BASH_BASE="$ZSH_BASH_LINUX" 
+        WORK_BASE="$WORK_LINUX"  
         GPG_BASE="$GPG_LINUX"  
     elif [[ $OS_SYSTEM == 'MacOs' ]]; then
         SSH_BASE="$SSH_OS"
-        ZSH_BASH_BASE="$ZSH_BASH_OS"   
+        ZSH_BASH_BASE="$ZSH_BASH_OS"  
+        WORK_BASE="$WORK_LINUX"   
         GPG_BASE="$GPG_OS"
     fi
     echo ''
@@ -80,10 +86,15 @@ function sync_to {
 	echo 'ZSH and BASH CONFIGS  ....';
 	tar -czvf "$GIT$ZSH_BASH_GOGLE_DRIVE" --absolute-names -C "$ZSH_BASH_BASE" ".zshrc" ".bashrc" ".bash_aliases";
     
+
     echo ''
     echo ''
-    echo '-------------------------------------------------'
-    echo 'done'
+
+    echo 'WORK DIR  ....';
+    tar -czvf "$GIT$WORK_GOOGLE_DRIVE" --absolute-names -C "$WORK_BASE" .;
+
+    echo ''
+    echo ''
 
     echo 'GPG  ....';
     tar -czvf "$GIT$GPG_GOGLE_DRIVE" --absolute-names -C "$GPG_BASE" .;

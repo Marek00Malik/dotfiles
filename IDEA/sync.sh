@@ -17,6 +17,10 @@ INGO_ROOT_DIR='/IDEA/ingo/';
 INGO_LINUX="$HOME/Pulpit/GitCode/Statoil/ingo/.idea/runConfigurations";
 INGO_OSX='/Users/mmalik/Desktop/GitCode/Statoil/ingo/.idea/runConfigurations';
 
+LA_ROOT_DIR='/IDEA/loyalty/';
+LA_LINUX="$HOME/Pulpit/GitCode/Statoil/loyalty/.idea/runConfigurations";
+LA_OSX='/Users/mmalik/Desktop/GitCode/Statoil/loyalty/.idea/runConfigurations';
+
 EXTRA2_ROOT_DIR='/IDEA/extra/';
 EXTRA2_LINUX="$HOME/Pulpit/GitCode/Statoil/extra2/.idea/runConfigurations";
 EXTRA2_OSX='/Users/mmalik/Desktop/GitCode/Statoil/extra2/.idea/runConfigurations';
@@ -52,11 +56,13 @@ function sync_to {
         CES="$CES_LINUX"
         FES="$FES_LINUX" 
         INGO="$INGO_LINUX"  
+        LA="$LA_LINUX"  
         EXTRA2="$EXTRA2_LINUX"
     elif [[ $OS_SYSTEM == 'MacOs' ]]; then
         CES="$CES_OSX"
         FES="$FES_OSX"   
-        INGO="$INGO_OSX"  
+        INGO="$INGO_OSX" 
+        LA="$LA_OSX"   
         EXTRA2="$INGO_OSX"
     fi
 
@@ -68,6 +74,9 @@ function sync_to {
 
 	echo 'INGO  ...';
 	mkdir -p "$BACKUP_DIR$INGO_ROOT_DIR" && cp -R $INGO "$BACKUP_DIR$INGO_ROOT_DIR";
+
+	echo 'LA  ...';
+	mkdir -p "$BACKUP_DIR$LA_ROOT_DIR" && cp -R $INGO "$BACKUP_DIR$LA_ROOT_DIR";
 
 	echo 'EXTRA2 ..';
 	mkdir -p "$BACKUP_DIR$EXTRA2_ROOT_DIR" && cp -R $EXTRA2 "$BACKUP_DIR$EXTRA2_ROOT_DIR";
