@@ -84,6 +84,9 @@ function sync_upload {
     
     echo '-------------------------------------------------'
     echo 'done'
+    git add --all
+    git commit -m "Changes `date '+%Y/%m/%d %H:%M'` $OS_SYSTEM -> GIT"
+
     exit 0
 } >&2
 
