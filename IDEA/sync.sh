@@ -51,7 +51,7 @@ echo
 
 
 function sync_upload {
-	echo  -e "Uploading files from $OS_SYSTEM to Git Repository";
+	echo  -e "Coping files from $OS_SYSTEM to Git Repository";
     if [[ $OS_SYSTEM == "Linux" ]]; then
         CES="$CES_LINUX"
         FES="$FES_LINUX" 
@@ -76,7 +76,7 @@ function sync_upload {
 	mkdir -p "$BACKUP_DIR$INGO_ROOT_DIR" && cp -R $INGO "$BACKUP_DIR$INGO_ROOT_DIR";
 
 	echo 'LA  ...';
-	mkdir -p "$BACKUP_DIR$LA_ROOT_DIR" && cp -R $INGO "$BACKUP_DIR$LA_ROOT_DIR";
+	mkdir -p "$BACKUP_DIR$LA_ROOT_DIR" && cp -R $LA "$BACKUP_DIR$LA_ROOT_DIR";
 
 	echo 'EXTRA2 ..';
 	mkdir -p "$BACKUP_DIR$EXTRA2_ROOT_DIR" && cp -R $EXTRA2 "$BACKUP_DIR$EXTRA2_ROOT_DIR";
@@ -85,13 +85,68 @@ function sync_upload {
     echo '-------------------------------------------------'
     echo 'done'
     git add --all
-    git commit -m "Changes `date '+%Y/%m/%d %H:%M'` $OS_SYSTEM -> GIT"
-
+    git commit -m "IDEA - Changes `date '+%Y/%m/%d %H:%M'` $OS_SYSTEM -> GIT"
+    git push
     exit 0
 } >&2
 
 function sync_download {
-	echo 'Not yet supported - under development';
+	echo 'Download latest repositrory IDEA settings from GitRepo';
+
+    git pull
+
+    echo  -e "Coping files from Git Repository to $OS_SYSTEM";
+
+    if [[ $OS_SYSTEM == "Linux" ]]; then
+        CES="$CES_LINUX"
+        FES="$FES_LINUX" 
+        INGO="$INGO_LINUX"  
+        LA="$LA_LINUX"  
+        EXTRA2="$EXTRA2_LINUX"
+    elif [[ $OS_SYSTEM == 'MacOs' ]]; then
+        CES="$CES_OSX"
+        FES="$FES_OSX"   
+        INGO="$INGO_OSX" 
+        LA="$LA_OSX"   
+        EXTRA2="$INGO_OSX"
+    fi
+
+    echo "Which project should by synced locally ?"
+    echo
+    echo "1 - CES | 2 - FES | 3 - INGO | 4 - LA | 5 - EXTRA | 0 - ALL"
+    echo
+
+    read -p 'Project to sync: ' projOption
+
+    case $projOption in
+        1)
+            echo 'Not supported yet !'
+            ;;
+        2) 
+            cp -R "$BACKUP_DIR$FES_ROOT_DIR" $FES
+            ;;
+        3)
+            cp -R "$BACKUP_DIR$INGO_ROOT_DIR" $INGO
+            ;;
+        4)
+            cp -R "$BACKUP_DIR$LA_ROOT_DIR" $LA
+            ;;
+        5) 
+            cp -R "$BACKUP_DIR$EXTRA2_ROOT_DIR" $EXTRA2
+            ;;
+        0)  
+            echo 'Not supported yet !'
+            ;;
+
+        ?)
+            echo '??? ??? WRONG ??? ???'
+            exit 1
+            ;;
+        *)
+            echo 'Exit with no action'
+            exit 0
+            ;;
+    esac >&2
 } >&2
 
 function usage {
