@@ -5,48 +5,37 @@
 
 
 set -e
-SSH_REMOTE='/Backup/ssh_config.tar.gz';
+SSH_REMOTE='/ssh_config.tar.gz';
 SSH_LINUX="$HOME/.ssh/";
-SSH_OS='';
+SSH_OS="$HOME/.ssh";
 
-ZSH_BASH_REMOTE='/Backup/zsh_bash.tar.gz';
+ZSH_BASH_REMOTE='/zsh_bash.tar.gz';
 ZSH_BASH_LINUX="$HOME";
-ZSH_BASH_OS='$HOME';
+ZSH_BASH_OS="$HOME";
 
-WORK_REMOTE='/Backup/WORK.tar.gz';
-WORK_LINUX="$HOME/Documents/WORK/"
-WORK_OS="$HOME/Documents/WORK/";
-
-GPG_REMOTE='/Backup/gpg.tar.gz';
-GPG_LINUX="$HOME/.gnupg"
-GPG_OS="$HOME/.gnupg";
-
-params="<from|to>"
+params="<upload|downlod>"
 OS_SYSTEM='unknown'
 
-if [[ $OSTYPE == *"linux"* ]]; then
+if [[ $OSTYPE == "Linux" ]]; then
     OS_SYSTEM='Linux'
-    GIT="$HOME/Desktop/GitCode/Personal/.backups"
-elif [[ $OSTYPE == 'macos' ]]; then
+    GIT="$HOME/Desktop/GitCode/Personal/dotfiles/Backup"
+elif [[ "$(uname -s)" == 'Darwin' ]]; then
     OS_SYSTEM='MacOs'  
-    GIT="$HOME/Desktop/GitCode/Personal/.backups"
+    GIT="$HOME/Desktop/GitCode/Personal/dotfiles/Backup"
 fi
 echo 
 echo 
-echo -e "\e[1mSync system preferences, config files, \e[92mto Google Drive\e[39m or \e[93mfrom Google Drive\e[39m"
-echo -e "Running sync on \e[93m$OS_SYSTEM \e[0m"
+echo -e "Sync system preferences, config files, to Google Drive or from Google Drive"
+echo -e "Running sync on $OS_SYSTEM"
 echo -e "....................................................."
 echo 
 echo 
 
-fetch_repo
-
-
-function fetch_repo {
+function pull_repo {
     echo -e "....................................................."
     echo "Sync local with remote origin."
     echo "Fetch from remote"
-    git fetch origin master
+    git pull
     echo -e "....................................................."
 }
 
@@ -55,49 +44,32 @@ function push_repo {
 
     echo "Sync local with remote origin."
     git add --all
-    git commit -m "Update Repo with `$OS_SYSTEM`"
+    git commit -m "Backup - changes `date '+%Y/%m/%d %H:%M'` `$OS_SYSTEM`"
 
     git push origin master
 
     echo -e "....................................................."
 }
 
-function sync_to {
-    echo  -e "Copping files from  \e[96m$OS_SYSTEM \e[92m \e[92mto Google Drive \e[39m";
+function sync_upload {
+    pull_repo
+    echo  -e "Copping files from $OS_SYSTEM to Google Drive";
     if [[ $OS_SYSTEM == "Linux" ]]; then
         SSH_BASE="$SSH_LINUX"
         ZSH_BASH_BASE="$ZSH_BASH_LINUX" 
-        WORK_BASE="$WORK_LINUX"  
-        GPG_BASE="$GPG_LINUX"  
     elif [[ $OS_SYSTEM == 'MacOs' ]]; then
         SSH_BASE="$SSH_OS"
         ZSH_BASH_BASE="$ZSH_BASH_OS"  
-        WORK_BASE="$WORK_LINUX"   
-        GPG_BASE="$GPG_OS"
     fi
     echo ''
     echo ''
     echo 'SSH CONFIGS .....'
-    tar -czvf "$GIT$SSH_GOGLE_DRIVE" --absolute-names -C "$SSH_BASE" .;
+    tar -czvf "$GIT$SSH_REMOTE" -C "$SSH_BASE" .;
     echo ''
     echo ''
-
 
 	echo 'ZSH and BASH CONFIGS  ....';
-	tar -czvf "$GIT$ZSH_BASH_GOGLE_DRIVE" --absolute-names -C "$ZSH_BASH_BASE" ".zshrc" ".bashrc" ".bash_aliases";
-    
-
-    echo ''
-    echo ''
-
-    echo 'WORK DIR  ....';
-    tar -czvf "$GIT$WORK_GOOGLE_DRIVE" --absolute-names -C "$WORK_BASE" .;
-
-    echo ''
-    echo ''
-
-    echo 'GPG  ....';
-    tar -czvf "$GIT$GPG_GOGLE_DRIVE" --absolute-names -C "$GPG_BASE" .;
+	tar -czvf "$GIT$ZSH_BASH_REMOTE" -C "$ZSH_BASH_BASE" ".zshrc" ".bashrc" ".bash_aliases" ".bash_profile";
     
     echo ''
     echo ''
@@ -109,43 +81,35 @@ function sync_to {
     exit 0
 } >&2
 
-function sync_from {
-	echo  -e "Copping files \e[93mfrom Repository\e[39mto \e[96m$OS_SYSTEM";
+function sync_download {
+    pull_repo
+
+	echo  -e "Copping files from Repository to $OS_SYSTEM";
     if [[ $OS_SYSTEM == "Linux" ]]; then
         SSH_BASE="$SSH_LINUX"
         ZSH_BASH_BASE="$ZSH_BASH_LINUX" 
-        GPG_BASE="$GPG_LINUX"  
     elif [[ $OS_SYSTEM == 'MacOs' ]]; then
         SSH_BASE="$SSH_OS"
         ZSH_BASH_BASE="$ZSH_BASH_OS"   
-        GPG_BASE="$GPG_OS"
     fi
     echo ''
     echo ''
     echo 'SSH CONFIGS .....'
-    tar -xvzf "$GIT$SSH_GOGLE_DRIVE" -C "$SSH_BASE";
+    tar -xvzf "$GIT$SSH_REMOTE" -C "$SSH_BASE";
     echo ''
     echo ''
 
 
     echo 'ZSH and BASH CONFIGS  ....';
-    tar -xvzf "$GIT$ZSH_BASH_GOGLE_DRIVE" -C "$ZSH_BASH_BASE";
+    tar -xvzf "$GIT$ZSH_BASH_REMOTE" -C "$ZSH_BASH_BASE";
     
-    echo ''
-    echo ''
-    echo '-------------------------------------------------'
-    echo 'done'
 
-    echo 'GPG  ....';
-    tar -xvzf "$GIT$GPG_GOGLE_DRIVE" -C "$GPG_BASE";
-    
     echo ''
     echo ''
     echo '-------------------------------------------------'
 
-    push_repo  
-
     echo 'done'
+
     exit 0
 } >&2 
 
@@ -153,7 +117,7 @@ function usage {
     echo "Usage: $0 [-h] [-s ${params}]"
     echo
     echo
-    exit 1
+    exit 0
 } >&2
 
 if [[ -z "$@" ]]; then
@@ -168,7 +132,7 @@ while getopts "hs:" opt; do
             echo "Options:"
             echo " -h"
             echo "   Print detailed help screen"
-            echo -e "   Choose direction of sync: \e[93mFrom \e[39mGoogle Drive | \e[93mTo \e[39mGoogle Drive on $OS_SYSTEM"
+            echo "   Choose direction of sync: \e[93mFrom \e[39mGoogle Drive | \e[93mTo \e[39mGoogle Drive on $OS_SYSTEM"
             echo " -s <parameter>"
             echo "   ${params}"
             echo
@@ -176,12 +140,14 @@ while getopts "hs:" opt; do
             ;;
 	    s)
             case "$OPTARG" in
-            	to)
-                    sync_to                   
+            	downlod)
+                    sync_download
                     ;;
-                from)
-                    sync_from
+
+                upload)
+                    sync_upload
  					;;
+
                 *)
                     echo 'No parameter selected.'
                     echo 'Choose enviroment: linux, mac_os or google to sync with'

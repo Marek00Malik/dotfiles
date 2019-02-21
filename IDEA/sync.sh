@@ -47,8 +47,20 @@ echo -e "Sync project configs, runConfiguration files, to Git Repository or from
 echo -e "Running sync on $OS_SYSTEM"
 echo -e "....................................................."
 echo 
+
+fetch_repo
+
 echo 
 
+
+
+function fetch_repo {
+    echo -e "....................................................."
+    echo "Sync local with remote origin."
+    echo "Fetch from remote"
+    git pull
+    echo -e "....................................................."
+}
 
 function sync_upload {
 	echo  -e "Coping files from $OS_SYSTEM to Git Repository";
@@ -146,7 +158,7 @@ function sync_download {
             echo 'Exit with no action'
             exit 0
             ;;
-    esac >&2
+    esac
 } >&2
 
 function usage {
