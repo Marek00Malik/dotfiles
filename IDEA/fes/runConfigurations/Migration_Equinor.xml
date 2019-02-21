@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Migration Equinor" type="Application" factoryName="Application" singleton="true">
+    <option name="MAIN_CLASS_NAME" value="com.sfr.migration.MigrationConsoleApplication" />
+    <module name="data-migration_main" />
+    <option name="PROGRAM_PARAMETERS" value="-m $USER_HOME$/Documents/WORK/webno-mapping-prod.csv -d $USER_HOME$/Documents/WORK/26317_drivers.scsv -v $USER_HOME$/Documents/WORK/26317_vehicles.scsv -c $USER_HOME$/Documents/WORK/26317_cards.scsv -t $USER_HOME$/Documents/WORK/26317_terminalTanks.scsv -u -e" />
+    <option name="VM_PARAMETERS" value="-Dapi_ext_properties=$PROJECT_DIR$/properties/prod.properties -Dlogback.configurationFile=$PROJECT_DIR$/fes-common/src/main/resources/logback/logback-prod.xml" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

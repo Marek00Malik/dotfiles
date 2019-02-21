@@ -2,8 +2,8 @@
   <configuration default="false" name="Migration import failed transactions" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.sfr.migration.MigrationConsoleApplication" />
     <module name="data-migration_main" />
-    <option name="PROGRAM_PARAMETERS" value="-m Users/mmalik/Downloads/webno-mapping-prod.csv -f 1013" />
-    <option name="VM_PARAMETERS" value="-Dapi_ext_properties=$PROJECT_DIR$/properties/local.properties -Dlogback.configurationFile=$PROJECT_DIR$/fes-common/src/main/resources/logback/logback-local.xml" />
+    <option name="PROGRAM_PARAMETERS" value="-m Users/mmalik/Downloads/webno-mapping-prod.csv -f 1006" />
+    <option name="VM_PARAMETERS" value="-Dapi_ext_properties=$PROJECT_DIR$/properties/prod.properties -Dlogback.configurationFile=$PROJECT_DIR$/fes-common/src/main/resources/logback/logback-local.xml" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

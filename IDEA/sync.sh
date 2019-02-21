@@ -25,7 +25,7 @@ EXTRA2_ROOT_DIR='/IDEA/extra/';
 EXTRA2_LINUX="$HOME/Pulpit/GitCode/Statoil/extra2/.idea/runConfigurations";
 EXTRA2_OSX='/Users/mmalik/Desktop/GitCode/Statoil/extra2/.idea/runConfigurations';
 
-params="<from|to>"
+params="<download|upload>"
 OS_SYSTEM='unknown'
 
 if [[ $OSTYPE == "Linux" ]]; then
@@ -43,15 +43,15 @@ fi
 
 echo 
 echo 
-echo -e "\e[1mSync project configs, runConfiguration files, \e[92mto Git Repository\e[39m or \e[93mfrom Git Repository\e[39m"
-echo -e "Running sync on \e[93m$OS_SYSTEM \e[0m"
+echo -e "Sync project configs, runConfiguration files, to Git Repository or from Git Repository"
+echo -e "Running sync on $OS_SYSTEM"
 echo -e "....................................................."
 echo 
 echo 
 
 
-function sync_to {
-	echo  -e "Copping files from  \e[96m$OS_SYSTEM \e[92mto \e[92mGit Repository \e[39m";
+function sync_upload {
+	echo  -e "Uploading files from $OS_SYSTEM to Git Repository";
     if [[ $OS_SYSTEM == "Linux" ]]; then
         CES="$CES_LINUX"
         FES="$FES_LINUX" 
@@ -87,7 +87,7 @@ function sync_to {
     exit 0
 } >&2
 
-function sync_from {
+function sync_download {
 	echo 'Not yet supported - under development';
 } >&2
 
@@ -103,7 +103,7 @@ fi
 while getopts "hs:" opt; do
     case $opt in
         h)
-			echo "Sync project config files from<=>to OperatingSystem\Git Repository"
+			echo "Sync project config OperatingSystem\Git Repository"
             echo
             echo "Options:"
             echo " -h"
@@ -115,11 +115,11 @@ while getopts "hs:" opt; do
             ;;
 	    s)
             case "$OPTARG" in
-            	from)
-                    sync_from
+            	upload)
+                    sync_upload
                     ;;
- 				to)
-                    sync_to
+ 				download)
+                    sync_download
 					;;
                 *)
                     echo 'No parameter selected.'
