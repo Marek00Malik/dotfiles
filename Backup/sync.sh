@@ -4,6 +4,7 @@
 ###########################################################################
 
 source "../common/git-functions.sh"
+source "../common/tar-gpg-operations.sh"
 
 set -e
 SSH_REMOTE='/ssh_config.tar.gz';
@@ -44,17 +45,8 @@ echo
 
 function sync_upload {
     pull_repo
-    echo  -e "Copping files from $OS_SYSTEM to Google Drive";
-    echo ''
-    echo ''
-    echo 'SSH CONFIGS .....'
-
-    tar -czvf "$GIT$SSH_REMOTE" -C "$SSH_BASE" .;
-    gpg --batch --yes --output "$GIT$SSH_REMOTE.gpg" --recipient "info@code-house.pl" --encrypt "$GIT$SSH_REMOTE";
-    rm "$GIT$SSH_REMOTE";
-
-    echo ''
-    echo ''
+    
+    compress_and_encrypt "$GIT$SSH_REMOTE" "$SSH_BASE" "SSH CONFIGS"
 
 	echo 'ZSH and BASH CONFIGS  ....';
 	tar -czvf "$GIT$ZSH_BASH_REMOTE" -C "$ZSH_BASH_BASE" ".zshrc" ".bashrc" ".bash_aliases" ".bash_profile";
