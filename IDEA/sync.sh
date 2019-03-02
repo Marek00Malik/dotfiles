@@ -30,10 +30,20 @@ OS_SYSTEM='unknown'
 
 if [[ $OSTYPE == "Linux" ]]; then
     OS_SYSTEM='Linux'
-    BACKUP_DIR='/Users/mmalik/Desktop/GitCode/Personal/dotfiles' ##fixme
+    BACKUP_DIR='/Users/mmalik/Desktop/GitCode/Personal/dotfiles' 
+    CES="$CES_LINUX"
+    FES="$FES_LINUX" 
+    INGO="$INGO_LINUX"  
+    LA="$LA_LINUX"  
+    EXTRA2="$EXTRA2_LINUX"
 elif [[ "$(uname -s)" == 'Darwin' ]]; then
     OS_SYSTEM='MacOs'  
     BACKUP_DIR='/Users/mmalik/Desktop/GitCode/Personal/dotfiles'
+    CES="$CES_OSX"
+    FES="$FES_OSX"   
+    INGO="$INGO_OSX" 
+    LA="$LA_OSX"   
+    EXTRA2="$INGO_OSX"
 fi
 
 if [[ $OS_SYSTEM == 'unknown' ]]; then 
@@ -64,19 +74,6 @@ function fetch_repo {
 
 function sync_upload {
 	echo  -e "Coping files from $OS_SYSTEM to Git Repository";
-    if [[ $OS_SYSTEM == "Linux" ]]; then
-        CES="$CES_LINUX"
-        FES="$FES_LINUX" 
-        INGO="$INGO_LINUX"  
-        LA="$LA_LINUX"  
-        EXTRA2="$EXTRA2_LINUX"
-    elif [[ $OS_SYSTEM == 'MacOs' ]]; then
-        CES="$CES_OSX"
-        FES="$FES_OSX"   
-        INGO="$INGO_OSX" 
-        LA="$LA_OSX"   
-        EXTRA2="$INGO_OSX"
-    fi
 
     ##echo "CES ....."
 	##mkdir -p "$BACKUP_DIR$CES_ROOT_DIR" && cp -R $CES "$BACKUP_DIR$CES_ROOT_DIR";
