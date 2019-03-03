@@ -46,21 +46,15 @@ echo
 function sync_upload {
     pull_repo
     
-    compress_and_encrypt "$GIT$SSH_REMOTE" "$SSH_BASE" "SSH CONFIGS"
+    echo 'SSH CONFIGS' 
+    compress_and_encrypt "$GIT$SSH_REMOTE" "$SSH_BASE";
 
-	echo 'ZSH and BASH CONFIGS  ....';
-	tar -czvf "$GIT$ZSH_BASH_REMOTE" -C "$ZSH_BASH_BASE" ".zshrc" ".bashrc" ".bash_aliases" ".bash_profile";
-    gpg --batch --yes --output "$GIT$ZSH_BASH_REMOTE.gpg" --recipient "info@code-house.pl" --encrypt "$GIT$ZSH_BASH_REMOTE";
-    rm "$GIT$ZSH_BASH_REMOTE";
-    
-    echo ''
-    echo ''
-    
-    echo 'WORK DIR .....'
-    tar -czvf "$GIT$WORK_REMOTE" -C "$WORK_BASE" --exclude="db_dumps" .;
-    gpg --batch --yes --output "$GIT$WORK_REMOTE.gpg" --recipient "info@code-house.pl" --encrypt "$GIT$WORK_REMOTE";
-    rm "$GIT$WORK_REMOTE";
-    
+    echo 'ZSH and BASH CONFIGS'
+	compress_and_encrypt "$GIT$ZSH_BASH_REMOTE" "$ZSH_BASH_BASE" ".zshrc" ".bashrc" ".bash_aliases" ".bash_profile" ;
+
+    echo 'WORK DOCUMENTATION'
+    compress_and_encrypt "$GIT$WORK_REMOTE" "$WORK_BASE";
+
     echo ''
     echo ''
     echo '-------------------------------------------------'
