@@ -9,21 +9,15 @@ function compress_and_encrypt {
 	
 	shift;
 	shift;
-	OPT_FILE_1=$1
-	OPT_FILE_2=$2
-	OPT_FILE_3=$3
-	OPT_FILE_4=$4
-	# OPT_FILE_5=$5
-	# OPT_FILE_6=$6
-
+	OPT_FILES=$@
 
 	echo  -e "Copping files from $OS_SYSTEM to Google Drive";
     echo ''
     echo ''   
-	if [ -z "$OPT_FILE_1" ]; then
+	if [ -z "$OPT_FILES" ]; then
 		tar -czvf "$REMOTE_DEST" -C "$DEST_FILENAME" .;
 	else 
-		tar -czvf "$REMOTE_DEST" -C "$DEST_FILENAME" "$OPT_FILE_1" "$OPT_FILE_2" "$OPT_FILE_3" "$OPT_FILE_4";
+		eval "tar -czvf "$REMOTE_DEST" -C "$DEST_FILENAME" $OPT_FILES";
 		 # "$OPT_FILE_5" "$OPT_FILE_6"
 	fi
 

@@ -50,7 +50,7 @@ function sync_upload {
     compress_and_encrypt "$GIT$SSH_REMOTE" "$SSH_BASE";
 
     echo 'ZSH and BASH CONFIGS'
-	compress_and_encrypt "$GIT$ZSH_BASH_REMOTE" "$ZSH_BASH_BASE" ".zshrc" ".bashrc" ".bash_aliases" ".bash_profile" ;
+	compress_and_encrypt "$GIT$ZSH_BASH_REMOTE" "$ZSH_BASH_BASE" "'.zshrc' '.bashrc' '.bash_aliases' '.bash_profile'" ;
 
     echo 'WORK DOCUMENTATION'
     compress_and_encrypt "$GIT$WORK_REMOTE" "$WORK_BASE";
