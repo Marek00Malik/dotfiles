@@ -7,15 +7,15 @@ source "../common/git-functions.sh"
 source "../common/tar-gpg-operations.sh"
 
 set -e
-SSH_REMOTE='/ssh_config.tar.gz';
+SSH_REMOTE='/ssh_config';
 SSH_LINUX="$HOME/.ssh/";
 SSH_OS="$HOME/.ssh";
 
-ZSH_BASH_REMOTE='/zsh_bash.tar.gz';
+ZSH_BASH_REMOTE='/zsh_bash';
 ZSH_BASH_LINUX="$HOME";
 ZSH_BASH_OS="$HOME";
 
-WORK_REMOTE='/work.tar.gz';
+WORK_REMOTE='/work';
 WORK_LINUX="$HOME/Dokumenty/WORK/projects/";
 WORK_OS="$HOME/Documents/WORK/projects/";
 
@@ -45,7 +45,11 @@ echo
 
 function sync_upload {
     pull_repo
-    
+    echo  -e "Copping files from $OS_SYSTEM to Google Drive";
+    echo '-------------------------------------------------'
+    echo
+    echo
+
     echo 'SSH CONFIGS' 
     compress_and_encrypt "$GIT$SSH_REMOTE" "$SSH_BASE";
 
@@ -55,8 +59,8 @@ function sync_upload {
     echo 'WORK DOCUMENTATION'
     compress_and_encrypt "$GIT$WORK_REMOTE" "$WORK_BASE";
 
-    echo ''
-    echo ''
+    echo 
+    echo
     echo '-------------------------------------------------'
 
     push_repo
@@ -72,35 +76,18 @@ function sync_download {
     echo ''
     echo ''
     echo 'SSH CONFIGS .....'
-    if [[ ! -d "$SSH_BASE" ]]; then
-        echo "CREATING DIR: $SSH_BASE"
-        mkdir -p "$SSH_BASE"
-    fi
-    gpg --batch --yes --output "$GIT$SSH_REMOTE" --decrypt "$GIT$SSH_REMOTE.gpg";
-    tar -xvzf "$GIT$SSH_REMOTE" -C "$SSH_BASE";
-    rm "$GIT$SSH_REMOTE";
-
+    decompose_and_decrypt "$GIT$SSH_REMOTE" "$SSH_BASE";
     echo ''
     echo ''
 
 
     echo 'ZSH and BASH CONFIGS  ....';
-    gpg --batch --yes --output "$GIT$ZSH_BASH_REMOTE" --decrypt "$GIT$ZSH_BASH_REMOTE.gpg";
-    tar -xvzf "$GIT$ZSH_BASH_REMOTE" -C "$ZSH_BASH_BASE";
-    rm "$GIT$ZSH_BASH_REMOTE";
-    
+    decompose_and_decrypt "$GIT$ZSH_BASH_REMOTE" "$ZSH_BASH_BASE";
     echo ''
     echo ''
     
-    echo 'WORK DIR .....'
-    if [[ ! -d "$WORK_BASE" ]]; then
-        echo "CREATING DIR: $WORK_BASE"
-        mkdir -p "$WORK_BASE"
-    fi
-    gpg --batch --yes --output "$GIT$WORK_REMOTE" --decrypt "$GIT$WORK_REMOTE.gpg";
-    tar -xvzf "$GIT$WORK_REMOTE" -C "$WORK_BASE";
-    rm "$GIT$WORK_REMOTE";
-
+    echo 'WORK DOCUMENTATION'
+    decompose_and_decrypt "$GIT$WORK_REMOTE" "$WORK_BASE";
     echo ''
     echo ''
     echo '-------------------------------------------------'
