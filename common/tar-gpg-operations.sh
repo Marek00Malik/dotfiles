@@ -19,7 +19,7 @@ function compress_and_encrypt {
 		eval "tar -czvf "$REMOTE_FILENAME.tar.gz" -C "$LOCAL_FILENAME" $OPT_FILES";
 	fi
 
-    gpg --batch --yes --output "$REMOTE_FILENAME.gpg" --recipient "info@code-house.pl" --encrypt "$REMOTE_FILENAME.tar.gz";
+    gpg --batch --yes --output "$REMOTE_FILENAME.tar.gz.gpg" --recipient "info@code-house.pl" --encrypt "$REMOTE_FILENAME.tar.gz";
     rm "$REMOTE_FILENAME.tar.gz";
 
     echo ''
