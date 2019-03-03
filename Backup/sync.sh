@@ -76,18 +76,18 @@ function sync_download {
     echo ''
     echo ''
     echo 'SSH CONFIGS .....'
-    decompose_and_decrypt "$GIT$SSH_REMOTE" "$SSH_BASE";
+    decompress_and_decrypt "$GIT$SSH_REMOTE" "$SSH_BASE";
     echo ''
     echo ''
 
 
     echo 'ZSH and BASH CONFIGS  ....';
-    decompose_and_decrypt "$GIT$ZSH_BASH_REMOTE" "$ZSH_BASH_BASE";
+    decompress_and_decrypt "$GIT$ZSH_BASH_REMOTE" "$ZSH_BASH_BASE";
     echo ''
     echo ''
     
     echo 'WORK DOCUMENTATION'
-    decompose_and_decrypt "$GIT$WORK_REMOTE" "$WORK_BASE";
+    decompress_and_decrypt "$GIT$WORK_REMOTE" "$WORK_BASE";
     echo ''
     echo ''
     echo '-------------------------------------------------'
