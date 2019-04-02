@@ -3,6 +3,8 @@
 ## This script is responsible for syncing idea configs between enviroments Linux and MacOs to Google Drive cloud.
 ###########################################################################
 
+source "../common/git-functions.sh"
+source "../common/tar-gpg-operations.sh"
 
 set -e
 CES_ROOT_DIR='/IDEA/ces/';
@@ -28,7 +30,7 @@ EXTRA2_OSX='/Users/mmalik/Desktop/GitCode/Statoil/extra2/.idea/runConfigurations
 params="<download|upload>"
 OS_SYSTEM='unknown'
 
-if [[ $OSTYPE == "Linux" ]]; then
+if [[ "$(uname -s)" == "Linux" ]]; then
     OS_SYSTEM='Linux'
     BACKUP_DIR='/Users/mmalik/Desktop/GitCode/Personal/dotfiles' 
     CES="$CES_LINUX"
