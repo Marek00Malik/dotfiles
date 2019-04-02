@@ -6,23 +6,23 @@
 
 set -e
 CES_ROOT_DIR='/IDEA/ces/';
-CES_LINUX="$HOME/Pulpit/GitCode/Statoil/engage/.idea/runConfigurations";
+CES_LINUX="$HOME/Pulpit/GitCode/CK/engage/.idea/runConfigurations";
 CES_OSX='';
 
 FES_ROOT_DIR='/IDEA/fes/';
-FES_LINUX="$HOME/Pulpit/GitCode/Statoil/fuel-e-service/.idea/runConfigurations";
+FES_LINUX="$HOME/Pulpit/GitCode/CK/fuel-e-service/.idea/runConfigurations";
 FES_OSX='/Users/mmalik/Desktop/GitCode/Statoil/fuel-e-service/.idea/runConfigurations';
 
 INGO_ROOT_DIR='/IDEA/ingo/';
-INGO_LINUX="$HOME/Pulpit/GitCode/Statoil/ingo/.idea/runConfigurations";
+INGO_LINUX="$HOME/Pulpit/GitCode/CK/ingo/.idea/runConfigurations";
 INGO_OSX='/Users/mmalik/Desktop/GitCode/Statoil/ingo/.idea/runConfigurations';
 
 LA_ROOT_DIR='/IDEA/loyalty/';
-LA_LINUX="$HOME/Pulpit/GitCode/Statoil/loyalty/.idea/runConfigurations";
+LA_LINUX="$HOME/Pulpit/GitCode/CK/loyalty/.idea/runConfigurations";
 LA_OSX='/Users/mmalik/Desktop/GitCode/Statoil/loyalty/.idea/runConfigurations';
 
 EXTRA2_ROOT_DIR='/IDEA/extra/';
-EXTRA2_LINUX="$HOME/Pulpit/GitCode/Statoil/extra2/.idea/runConfigurations";
+EXTRA2_LINUX="$HOME/Pulpit/GitCode/CK/extra2/.idea/runConfigurations";
 EXTRA2_OSX='/Users/mmalik/Desktop/GitCode/Statoil/extra2/.idea/runConfigurations';
 
 params="<download|upload>"
