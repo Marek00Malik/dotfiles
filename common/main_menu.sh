@@ -13,7 +13,14 @@ function usage {
 } >&2
 
 if [[ -z "$@" ]]; then
-    usage
+    read -p "Download or upload data? (D)ownload/(U)pload" -n 1 -r
+    echo    # (optional) move to a new line
+    
+    if [[ $REPLY =~ ^[(Dd)]$ ]]; then
+        sync_download
+    elif [[ $REPLAY =~ ^[(Uu)]$ ]]; then
+        sync_upload            
+    fi
 fi
 
 while getopts "hs:" opt; do
@@ -52,7 +59,14 @@ while getopts "hs:" opt; do
             usage
             ;;
         *)
-            echo 'You did not put in anything'
+            read -p "Download or upload data? (D)ownload/(U)pload" -n 1 -r
+            echo    # (optional) move to a new line
+            if [[ $REPLY =~ ^[(Dd)]$ ]]; then
+                sync_download
+            elif [[ $REPLAY =~ ^[(Uu)]$ ]]; then
+                sync_upload            
+
+            fi
             ;;
     esac >&2
 

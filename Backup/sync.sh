@@ -7,31 +7,32 @@ source "../common/git-functions.sh"
 source "../common/tar-gpg-operations.sh"
 
 set -e
-SSH_REMOTE='/ssh_config';
-SSH_LINUX="$HOME/.ssh/";
-SSH_OS="$HOME/.ssh";
+SSH_REMOTE_FILENAMEE='/ssh_config';
+SSH_LINUX_DIR="$HOME/.ssh/";
+SSH_OSX_DIR="$HOME/.ssh";
 
-ZSH_BASH_REMOTE='/zsh_bash';
-ZSH_BASH_LINUX="$HOME";
-ZSH_BASH_OS="$HOME";
+ZSH_BASH_REMOTE_FILENAME='/zsh_bash';
+ZSH_BASH_LINUX_DIR="$HOME";
+ZSH_BASH_OSX_DIR="$HOME";
 
-WORK_REMOTE='/work';
-WORK_LINUX="$HOME/Dokumenty/WORK/projects/";
-WORK_OS="$HOME/Documents/WORK/projects/";
+WORK_REMOTE_FILENAME='/work';
+WORK_LINUX_DIR="$HOME/Dokumenty/WORK/";
+WORK_OSX_DIR="$HOME/Documents/WORK/";
 
 OS_SYSTEM='unknown'
-GIT="$HOME/Desktop/GitCode/Personal/dotfiles/Backup"
 
 if [[ $OSTYPE == "Linux" ]]; then
     OS_SYSTEM='Linux'
-    SSH_BASE="$SSH_LINUX"
-    ZSH_BASH_BASE="$ZSH_BASH_LINUX" 
-    WORK_BASE="$WORK_LINUX"
+    GIT="$HOME/Desktop/GitCode/Personal/dotfiles/Backup"
+    SSH_DIR="$SSH_LINUX_DIR"
+    ZSH_BASH_DIR="$ZSH_BASH_LINUX_DIR" 
+    WORK_DIR="$WORK_LINUX_DIR"
 elif [[ "$(uname -s)" == 'Darwin' ]]; then
-    OS_SYSTEM='MacOs'     
-    SSH_BASE="$SSH_OS"
-    ZSH_BASH_BASE="$ZSH_BASH_OS"  
-    WORK_BASE="$WORK_OS"
+    OS_SYSTEM='MacOs'   
+    GIT="$HOME/Desktop/GitCode/Personal/dotfiles/Backup"  
+    SSH_DIR="$SSH_OSX_DIR"
+    ZSH_BASH_DIR="$ZSH_BASH_OSX_DIR"  
+    WORK_DIR="$WORK_OSX_DIR"
 fi
 
 echo 
@@ -51,13 +52,13 @@ function sync_upload {
     echo
 
     echo 'SSH CONFIGS' 
-    compress_and_encrypt "$GIT$SSH_REMOTE" "$SSH_BASE";
+    compress_and_encrypt "$GIT$SSH_REMOTE_FILENAMEE" "$SSH_DIR";
 
     echo 'ZSH and BASH CONFIGS'
-	compress_and_encrypt "$GIT$ZSH_BASH_REMOTE" "$ZSH_BASH_BASE" "'.zshrc' '.bashrc' '.bash_aliases' '.bash_profile'" ;
+	compress_and_encrypt "$GIT$ZSH_BASH_REMOTE_FILENAME" "$ZSH_BASH_DIR" "'.zshrc' '.bashrc' '.bash_aliases' '.bash_profile'" ;
 
     echo 'WORK DOCUMENTATION'
-    compress_and_encrypt "$GIT$WORK_REMOTE" "$WORK_BASE";
+    compress_and_encrypt "$GIT$WORK_REMOTE_FILENAME" "$WORK_DIR";
 
     echo 
     echo
@@ -76,18 +77,18 @@ function sync_download {
     echo ''
     echo ''
     echo 'SSH CONFIGS .....'
-    decompress_and_decrypt "$GIT$SSH_REMOTE" "$SSH_BASE";
+    decompress_and_decrypt "$GIT$SSH_REMOTE_FILENAMEE" "$SSH_DIR";
     echo ''
     echo ''
 
 
     echo 'ZSH and BASH CONFIGS  ....';
-    decompress_and_decrypt "$GIT$ZSH_BASH_REMOTE" "$ZSH_BASH_BASE";
+    decompress_and_decrypt "$GIT$ZSH_BASH_REMOTE_FILENAME" "$ZSH_BASH_DIR";
     echo ''
     echo ''
     
     echo 'WORK DOCUMENTATION'
-    decompress_and_decrypt "$GIT$WORK_REMOTE" "$WORK_BASE";
+    decompress_and_decrypt "$GIT$WORK_REMOTE_FILENAME" "$WORK_DIR";
     echo ''
     echo ''
     echo '-------------------------------------------------'

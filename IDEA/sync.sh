@@ -32,25 +32,20 @@ OS_SYSTEM='unknown'
 
 if [[ "$(uname -s)" == "Linux" ]]; then
     OS_SYSTEM='Linux'
-    BACKUP_DIR='/Users/mmalik/Desktop/GitCode/Personal/dotfiles' 
-    CES="$CES_LINUX"
-    FES="$FES_LINUX" 
-    INGO="$INGO_LINUX"  
-    LA="$LA_LINUX"  
-    EXTRA2="$EXTRA2_LINUX"
+    GIT_DIR='/Users/mmalik/Desktop/GitCode/Personal/dotfiles/IDEA' 
+    CES_DIR="$CES_LINUX_DIR"
+    FES_DIR="$FES_LINUX_DIR" 
+    INGO_DIR="$INGO_LINUX_DIR"  
+    LA_DIR="$LA_LINUX_DIR"  
+    EXTRA2_DIR="$EXTRA2_LINUX_DIR"
 elif [[ "$(uname -s)" == 'Darwin' ]]; then
     OS_SYSTEM='MacOs'  
-    BACKUP_DIR='/Users/mmalik/Desktop/GitCode/Personal/dotfiles'
-    CES="$CES_OSX"
-    FES="$FES_OSX"   
-    INGO="$INGO_OSX" 
-    LA="$LA_OSX"   
-    EXTRA2="$INGO_OSX"
-fi
-
-if [[ $OS_SYSTEM == 'unknown' ]]; then 
-    echo "SYSTEM not recognized, check uname command result on your machine!"
-    exit 1
+    GIT_DIR="$HOME/Desktop/GitCode/Personal/dotfiles/IDEA"  
+    CES_DIR="$CES_OSX_DIR"
+    FES_DIR="$FES_OSX_DIR"   
+    INGO_DIR="$INGO_OSX_DIR" 
+    LA_DIR="$LA_OSX_DIRX"   
+    EXTRA2_DIR="$INGO_OSX_DIRSX"
 fi
 
 echo 
@@ -60,20 +55,6 @@ echo -e "Running sync on $OS_SYSTEM"
 echo -e "....................................................."
 echo 
 
-fetch_repo
-
-echo 
-
-
-
-function fetch_repo {
-    echo -e "....................................................."
-    echo "Sync local with remote origin."
-    echo "Fetch from remote"
-    git pull
-    echo -e "....................................................."
-}
-
 function sync_upload {
 	echo  -e "Coping files from $OS_SYSTEM to Git Repository";
 
@@ -81,46 +62,25 @@ function sync_upload {
 	##mkdir -p "$BACKUP_DIR$CES_ROOT_DIR" && cp -R $CES "$BACKUP_DIR$CES_ROOT_DIR";
 
 	echo 'FES  ....';
-	mkdir -p "$BACKUP_DIR$FES_ROOT_DIR" && cp -R $FES "$BACKUP_DIR$FES_ROOT_DIR";
+    compress_and_encrypt "$GIT_DIR$FES_REMOTE_FILENAME" "$FES_DIR";
 
 	echo 'INGO  ...';
-	mkdir -p "$BACKUP_DIR$INGO_ROOT_DIR" && cp -R $INGO "$BACKUP_DIR$INGO_ROOT_DIR";
+	compress_and_encrypt "$GIT_DIR$INGO_REMOTE_FILENAME" "$INGO_DIR";
 
 	echo 'LA  ...';
-	mkdir -p "$BACKUP_DIR$LA_ROOT_DIR" && cp -R $LA "$BACKUP_DIR$LA_ROOT_DIR";
+    compress_and_encrypt "$GIT_DIR$LA_REMOTE_FILENAME" "$LA_DIR";
 
 	echo 'EXTRA2 ..';
-	mkdir -p "$BACKUP_DIR$EXTRA2_ROOT_DIR" && cp -R $EXTRA2 "$BACKUP_DIR$EXTRA2_ROOT_DIR";
+    compress_and_encrypt "$GIT_DIR$EXTRA2_REMOTE_FILENAME" "$EXTRA2_DIR";
 
-    
-    echo '-------------------------------------------------'
-    echo 'done'
-    git add --all
-    git commit -m "IDEA - Changes `date '+%Y/%m/%d %H:%M'` $OS_SYSTEM -> GIT"
-    git push
-    exit 0
+    push_repo
+
 } >&2
 
 function sync_download {
 	echo 'Download latest repositrory IDEA settings from GitRepo';
 
-    git pull
-
     echo  -e "Coping files from Git Repository to $OS_SYSTEM";
-
-    if [[ $OS_SYSTEM == "Linux" ]]; then
-        CES="$CES_LINUX"
-        FES="$FES_LINUX" 
-        INGO="$INGO_LINUX"  
-        LA="$LA_LINUX"  
-        EXTRA2="$EXTRA2_LINUX"
-    elif [[ $OS_SYSTEM == 'MacOs' ]]; then
-        CES="$CES_OSX"
-        FES="$FES_OSX"   
-        INGO="$INGO_OSX" 
-        LA="$LA_OSX"   
-        EXTRA2="$INGO_OSX"
-    fi
 
     echo "Which project should by synced locally ?"
     echo
@@ -160,49 +120,4 @@ function sync_download {
     esac
 } >&2
 
-function usage {
-    echo "Usage: $0 [-h] [-s ${params}]"
-    exit 1
-} >&2
-
-if [[ -z "$@" ]]; then
-    usage
-fi
-
-while getopts "hs:" opt; do
-    case $opt in
-        h)
-			echo "Sync project config OperatingSystem\Git Repository"
-            echo
-            echo "Options:"
-            echo " -h"
-            echo "   Print detailed help screen"
-            echo " -s <parameter>"
-            echo "   ${params}"
-            echo
-            usage
-            ;;
-	    s)
-            case "$OPTARG" in
-            	upload)
-                    sync_upload
-                    ;;
- 				download)
-                    sync_download
-					;;
-                *)
-                    echo 'No parameter selected.'
-                    echo 'Choose enviroment: linux, mac_os or google to sync with'
-                    ;;
-            esac>&2
-            ;;
-    	?)
-            echo ' ??? ??? What do you want ??? ???'
-            usage
-            ;;
-        *)
-            echo 'You did not put in anything'
-            ;;
-    esac >&2
-
-done
+. ../common/main_menu.sh
