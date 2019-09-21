@@ -9,9 +9,10 @@ params="<download|upload>"
 
 function pull_repo {
 
-    read -p "Would you like to pull latest data from origin (Yes/No)?" -n 1 -r
+    echo "Would you like to pull latest data from origin (${green}Yes${reset}/${blue}No${reset})?"
+    read userInput
     echo    # (optional) move to a new line
-    if [[ $REPLY =~ ^[(Yes|Y|yes|y)]$ ]]
+    if [[ $userInput =~ ^[(Yes|Y|yes|y)]$ ]]
     then    
         echo -e "....................................................."
         echo "Sync local with remote origin."
@@ -22,9 +23,10 @@ function pull_repo {
 }
 
 function push_repo {
-    read -p "Would you like to push latest data to origin (Yes/No)?" -n 1 -r
+    echo "Would you like to push latest data to origin (${green}Yes${reset}/${blue}No${reset})?"
+    read userInput
     echo    # (optional) move to a new line
-    if [[ $REPLY =~ ^[(Yes|Y|yes|y)]$ ]]
+    if [[ $userInput =~ ^[(Yes|Y|yes|y)]$ ]]
     then    
         echo -e "....................................................."
 

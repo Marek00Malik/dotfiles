@@ -3,8 +3,9 @@
 ## This script is responsible for syncing idea configs between enviroments Linux and MacOs to Google Drive cloud.
 ###########################################################################
 
-source "../common/git-functions.sh"
-source "../common/tar-gpg-operations.sh"
+source "${BASH_SOURCE%/*}/../common/git-functions.sh"
+source "${BASH_SOURCE%/*}/../common/tar-gpg-operations.sh"
+
 
 set -e
 SSH_REMOTE_FILENAMEE='/ssh_config';
@@ -98,4 +99,4 @@ function sync_download {
     exit 0
 } >&2 
 
-. ../common/main_menu.sh
+source "${BASH_SOURCE%/*}/../common/main_menu.sh"
