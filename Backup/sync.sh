@@ -16,10 +16,6 @@ ZSH_BASH_REMOTE_FILENAME='/zsh_bash';
 ZSH_BASH_LINUX_DIR="$HOME";
 ZSH_BASH_OSX_DIR="$HOME";
 
-WORK_REMOTE_FILENAME='/work';
-WORK_LINUX_DIR="$HOME/Dokumenty/WORK/";
-WORK_OSX_DIR="$HOME/Documents/WORK/";
-
 OS_SYSTEM='unknown'
 
 if [[ $OSTYPE == "Linux" ]]; then
@@ -27,13 +23,11 @@ if [[ $OSTYPE == "Linux" ]]; then
     GIT="$HOME/Desktop/GitCode/Personal/dotfiles/Backup"
     SSH_DIR="$SSH_LINUX_DIR"
     ZSH_BASH_DIR="$ZSH_BASH_LINUX_DIR" 
-    WORK_DIR="$WORK_LINUX_DIR"
 elif [[ "$(uname -s)" == 'Darwin' ]]; then
     OS_SYSTEM='MacOs'   
     GIT="$HOME/Desktop/GitCode/Personal/dotfiles/Backup"  
     SSH_DIR="$SSH_OSX_DIR"
     ZSH_BASH_DIR="$ZSH_BASH_OSX_DIR"  
-    WORK_DIR="$WORK_OSX_DIR"
 fi
 
 echo 
@@ -57,9 +51,6 @@ function sync_upload {
 
     echo 'ZSH and BASH CONFIGS'
 	compress_and_encrypt "$GIT$ZSH_BASH_REMOTE_FILENAME" "$ZSH_BASH_DIR" "'.zshrc' '.bashrc' '.bash_aliases' '.bash_profile'" ;
-
-    echo 'WORK DOCUMENTATION'
-    compress_and_encrypt "$GIT$WORK_REMOTE_FILENAME" "$WORK_DIR";
 
     echo 
     echo
@@ -85,11 +76,6 @@ function sync_download {
 
     echo 'ZSH and BASH CONFIGS  ....';
     decompress_and_decrypt "$GIT$ZSH_BASH_REMOTE_FILENAME" "$ZSH_BASH_DIR";
-    echo ''
-    echo ''
-    
-    echo 'WORK DOCUMENTATION'
-    decompress_and_decrypt "$GIT$WORK_REMOTE_FILENAME" "$WORK_DIR";
     echo ''
     echo ''
     echo '-------------------------------------------------'
